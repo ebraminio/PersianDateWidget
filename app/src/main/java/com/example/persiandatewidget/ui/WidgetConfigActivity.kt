@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -226,61 +227,69 @@ class WidgetConfigActivity : ComponentActivity() {
                             )
                         }
 
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                        AnimatedVisibility(
+                            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || !useColorful
                         ) {
-                            Text(
-                                text = stringResource(R.string.pref_background_opacity),
-                                style = MaterialTheme.typography.bodyLarge,
-                                fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                modifier = Modifier.padding(bottom = 4.dp)
-                            )
-                            Text(
-                                text = stringResource(R.string.pref_background_opacity_desc),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f),
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
                             ) {
                                 Text(
-                                    text = stringResource(R.string.transparent),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.6f)
-                                )
-                                Slider(
-                                    value = backgroundAlpha,
-                                    onValueChange = { value ->
-                                        scope.launch {
-                                            WidgetPreferences.setBackgroundAlpha(
-                                                this@WidgetConfigActivity,
-                                                value,
-                                            )
-                                            PersianDateWidget().updateAll(this@WidgetConfigActivity)
-                                        }
-                                    },
-                                    valueRange = 0f..1f,
-                                    modifier = Modifier.weight(1f)
+                                    text = stringResource(R.string.pref_background_opacity),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    modifier = Modifier.padding(bottom = 4.dp)
                                 )
                                 Text(
-                                    text = stringResource(R.string.opaque),
+                                    text = stringResource(R.string.pref_background_opacity_desc),
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.6f)
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f),
+                                    modifier = Modifier.padding(bottom = 8.dp)
+                                )
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.transparent),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(
+                                            alpha = 0.6f
+                                        )
+                                    )
+                                    Slider(
+                                        value = backgroundAlpha,
+                                        onValueChange = { value ->
+                                            scope.launch {
+                                                WidgetPreferences.setBackgroundAlpha(
+                                                    this@WidgetConfigActivity,
+                                                    value,
+                                                )
+                                                PersianDateWidget().updateAll(this@WidgetConfigActivity)
+                                            }
+                                        },
+                                        valueRange = 0f..1f,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.opaque),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(
+                                            alpha = 0.6f
+                                        )
+                                    )
+                                }
+                                Text(
+                                    text = "${(backgroundAlpha * 100).toInt()}%",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    modifier = Modifier.align(Alignment.CenterHorizontally)
                                 )
                             }
-                            Text(
-                                text = "${(backgroundAlpha * 100).toInt()}%",
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                modifier = Modifier.align(Alignment.CenterHorizontally)
-                            )
                         }
                     }
                 }
