@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">ویجت تاریخ فارسی</string>
+    <string name="widget_description">نمایش تاریخ فعلی شمسی با روز و ماه</string>
+
+    <!-- Configuration Activity -->
+    <string name="config_title">تنظیمات ویجت تاریخ فارسی</string>
+    <string name="widget_info_title">اطلاعات ویجت</string>
+
+    <!-- Widget Preferences -->
+    <string name="preferences_title">ظاهر ویجت</string>
+    <string name="pref_colorful">رنگی</string>
+    <string name="pref_colorful_desc">استفاده از رنگ‌های تم سیستم</string>
+    <string name="pref_transparent_background">پس‌زمینه شفاف</string>
+    <string name="pref_transparent_background_desc">شفاف‌سازی پس‌زمینه ویجت</string>
+
+    <!-- Buttons -->
+    <string name="button_refresh_widget">به‌روزرسانی فوری ویجت</string>
+    <string name="button_close">بستن</string>
+
+    <!-- Messages -->
+    <string name="message_widget_updated">ویجت به‌روزرسانی شد</string>
+    <string name="message_update_error">خطا در به‌روزرسانی</string>
+</resources>
+
+
+

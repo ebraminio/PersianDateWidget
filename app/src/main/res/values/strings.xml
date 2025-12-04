@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Persian Date Widget</string>
+    <string name="widget_description">Displays current Persian date with day and month</string>
+
+    <!-- Configuration Activity -->
+    <string name="config_title">Persian Date Widget Settings</string>
+    <string name="widget_info_title">Widget Information</string>
+
+    <!-- Widget Preferences -->
+    <string name="preferences_title">Widget Appearance</string>
+    <string name="pref_colorful">Colorful</string>
+    <string name="pref_colorful_desc">Use colorful accent colors (Material You)</string>
+    <string name="pref_transparent_background">Transparent Background</string>
+    <string name="pref_transparent_background_desc">Make widget background transparent</string>
+
+    <!-- Buttons -->
+    <string name="button_refresh_widget">Refresh Widget Now</string>
+    <string name="button_close">Close</string>
+
+    <!-- Messages -->
+    <string name="message_widget_updated">Widget updated</string>
+    <string name="message_update_error">Update error</string>
+</resources>
