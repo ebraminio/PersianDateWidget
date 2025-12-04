@@ -25,6 +25,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
@@ -95,7 +96,7 @@ class WidgetConfigActivity : ComponentActivity() {
 
         val dataStore by WidgetPreferences.dataStore(this)
         val useColorful = WidgetPreferences.isColorful(dataStore)
-        val transparentBackground = WidgetPreferences.isTransparent(dataStore)
+        val backgroundAlpha = WidgetPreferences.getBackgroundAlpha(dataStore)
         val defaultHeight = 120.dp
 
         Scaffold(
@@ -157,7 +158,7 @@ class WidgetConfigActivity : ComponentActivity() {
                     contentAlignment = Alignment.Center,
                 ) {
                     val context = LocalContext.current
-                    key(useColorful, transparentBackground) {
+                    key(useColorful, backgroundAlpha) {
                         AppWidgetHostPreview(
                             modifier = Modifier,
                             displaySize = DpSize(120.dp, defaultHeight)
@@ -225,38 +226,60 @@ class WidgetConfigActivity : ComponentActivity() {
                             )
                         }
 
-                        Row(
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable {
-                                    scope.launch {
-                                        WidgetPreferences.setTransparent(
-                                            this@WidgetConfigActivity,
-                                            !transparentBackground,
-                                        )
-                                        PersianDateWidget().updateAll(this@WidgetConfigActivity)
-                                    }
-                                }
                                 .padding(vertical = 8.dp, horizontal = 16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
-                            Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(R.string.pref_background_opacity),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
+                            Text(
+                                text = stringResource(R.string.pref_background_opacity_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f),
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
                                 Text(
-                                    text = stringResource(R.string.pref_transparent_background),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    fontWeight = FontWeight.Medium,
-                                    color = MaterialTheme.colorScheme.onTertiaryContainer
+                                    text = stringResource(R.string.transparent),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.6f)
+                                )
+                                Slider(
+                                    value = backgroundAlpha,
+                                    onValueChange = { value ->
+                                        scope.launch {
+                                            WidgetPreferences.setBackgroundAlpha(
+                                                this@WidgetConfigActivity,
+                                                value,
+                                            )
+                                            PersianDateWidget().updateAll(this@WidgetConfigActivity)
+                                        }
+                                    },
+                                    valueRange = 0f..1f,
+                                    modifier = Modifier.weight(1f)
                                 )
                                 Text(
-                                    text = stringResource(R.string.pref_transparent_background_desc),
+                                    text = stringResource(R.string.opaque),
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.6f)
                                 )
                             }
-                            Switch(
-                                checked = transparentBackground,
-                                onCheckedChange = null, // Handled by Row click
+                            Text(
+                                text = "${(backgroundAlpha * 100).toInt()}%",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.align(Alignment.CenterHorizontally)
                             )
                         }
                     }

@@ -10,8 +10,10 @@
     <string name="preferences_title">ظاهر ویجت</string>
     <string name="pref_colorful">رنگی</string>
     <string name="pref_colorful_desc">استفاده از رنگ‌های تم سیستم</string>
-    <string name="pref_transparent_background">پس‌زمینه شفاف</string>
-    <string name="pref_transparent_background_desc">شفاف‌سازی پس‌زمینه ویجت</string>
+    <string name="pref_background_opacity">شفافیت پس‌زمینه</string>
+    <string name="pref_background_opacity_desc">تنظیم میزان شفافیت پس‌زمینه ویجت</string>
+    <string name="transparent">شفاف</string>
+    <string name="opaque">کدر</string>
 
     <!-- Buttons -->
     <string name="button_refresh_widget">به‌روزرسانی فوری ویجت</string>

@@ -10,8 +10,10 @@
     <string name="preferences_title">Widget Appearance</string>
     <string name="pref_colorful">Colorful</string>
     <string name="pref_colorful_desc">Use colorful accent colors (Material You)</string>
-    <string name="pref_transparent_background">Transparent Background</string>
-    <string name="pref_transparent_background_desc">Make widget background transparent</string>
+    <string name="pref_background_opacity">Background Opacity</string>
+    <string name="pref_background_opacity_desc">Adjust widget background transparency level</string>
+    <string name="transparent">Transparent</string>
+    <string name="opaque">Opaque</string>
 
     <!-- Buttons -->
     <string name="button_refresh_widget">Refresh Widget Now</string>
