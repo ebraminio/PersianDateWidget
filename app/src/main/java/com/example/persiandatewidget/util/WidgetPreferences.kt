@@ -19,6 +19,8 @@ object WidgetPreferences {
 
     private val KEY_USE_COLORFUL = booleanPreferencesKey("use_colorful")
     private val KEY_BACKGROUND_ALPHA = floatPreferencesKey("background_alpha")
+    private val KEY_CORNER_RADIUS = floatPreferencesKey("corner_radius")
+    private val KEY_PADDING = floatPreferencesKey("padding")
 
     @Composable
     fun dataStore(context: Context): State<Preferences?> {
@@ -39,6 +41,22 @@ object WidgetPreferences {
     suspend fun setBackgroundAlpha(context: Context, alpha: Float) {
         context.dataStore.edit { preferences ->
             preferences[KEY_BACKGROUND_ALPHA] = alpha.coerceIn(0f, 1f)
+        }
+    }
+
+    fun getCornerRadius(dataStore: Preferences?) = dataStore?.get(KEY_CORNER_RADIUS) ?: 60f
+
+    suspend fun setCornerRadius(context: Context, radius: Float) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_CORNER_RADIUS] = radius.coerceIn(0f, 60f)
+        }
+    }
+
+    fun getPadding(dataStore: Preferences?) = dataStore?.get(KEY_PADDING) ?: 4f
+
+    suspend fun setPadding(context: Context, padding: Float) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_PADDING] = padding.coerceIn(0f, 24f)
         }
     }
 }

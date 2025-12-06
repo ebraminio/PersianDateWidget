@@ -15,6 +15,7 @@ import androidx.glance.action.clickable
 import androidx.glance.appwidget.AndroidRemoteViews
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.action.actionRunCallback
+import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.color.ColorProvider
@@ -40,18 +41,25 @@ class PersianDateWidget : GlanceAppWidget() {
         val dataStore by WidgetPreferences.dataStore(context)
         val useColorful = WidgetPreferences.isColorful(dataStore)
         val backgroundAlpha = WidgetPreferences.getBackgroundAlpha(dataStore)
+        val cornerRadius = WidgetPreferences.getCornerRadius(dataStore)
+        val padding = WidgetPreferences.getPadding(dataStore)
 
         AndroidRemoteViews(
             RemoteViews(context.packageName, R.layout.widget_backround).also {
-                if (useColorful && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    it.setFloat(R.id.widget_content, "setAlpha", backgroundAlpha)
-                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) it.setFloat(
+                    R.id.widget_content,
+                    "setAlpha",
+                    if (useColorful) backgroundAlpha else 1f
+                )
             },
             R.id.widget_content,
-            GlanceModifier.fillMaxSize(),
+            GlanceModifier
+                .fillMaxSize()
+                .padding(padding.dp),
         ) {
             Box(
                 GlanceModifier
+                    .cornerRadius(cornerRadius.dp)
                     .background(
                         if (useColorful) GlanceTheme.colors.widgetBackground else ColorProvider(
                             day = Color.White.copy(alpha = backgroundAlpha),

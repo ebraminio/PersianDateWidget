@@ -98,6 +98,8 @@ class WidgetConfigActivity : ComponentActivity() {
         val dataStore by WidgetPreferences.dataStore(this)
         val useColorful = WidgetPreferences.isColorful(dataStore)
         val backgroundAlpha = WidgetPreferences.getBackgroundAlpha(dataStore)
+        val cornerRadius = WidgetPreferences.getCornerRadius(dataStore)
+        val padding = WidgetPreferences.getPadding(dataStore)
         val defaultHeight = 120.dp
 
         Scaffold(
@@ -159,14 +161,15 @@ class WidgetConfigActivity : ComponentActivity() {
                     contentAlignment = Alignment.Center,
                 ) {
                     val context = LocalContext.current
-                    key(useColorful, backgroundAlpha) {
+                    val widgetWidth = defaultHeight * 2
+                    key(useColorful, backgroundAlpha, cornerRadius, padding) {
                         AppWidgetHostPreview(
                             modifier = Modifier,
-                            displaySize = DpSize(120.dp, defaultHeight)
+                            displaySize = DpSize(widgetWidth, defaultHeight)
                         ) {
                             PersianDateWidget().compose(
                                 context = context,
-                                size = DpSize(120.dp, defaultHeight),
+                                size = DpSize(widgetWidth, defaultHeight),
                                 state = null
                             )
                         }
@@ -290,6 +293,130 @@ class WidgetConfigActivity : ComponentActivity() {
                                     modifier = Modifier.align(Alignment.CenterHorizontally)
                                 )
                             }
+                        }
+
+                        AnimatedVisibility(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.pref_corner_radius),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    modifier = Modifier.padding(bottom = 4.dp)
+                                )
+                                Text(
+                                    text = stringResource(R.string.pref_corner_radius_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f),
+                                    modifier = Modifier.padding(bottom = 8.dp)
+                                )
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.sharp),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(
+                                            alpha = 0.6f
+                                        )
+                                    )
+                                    Slider(
+                                        value = cornerRadius,
+                                        onValueChange = { value ->
+                                            scope.launch {
+                                                WidgetPreferences.setCornerRadius(
+                                                    this@WidgetConfigActivity,
+                                                    value,
+                                                )
+                                                PersianDateWidget().updateAll(this@WidgetConfigActivity)
+                                            }
+                                        },
+                                        valueRange = 0f..60f,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.rounded),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(
+                                            alpha = 0.6f
+                                        )
+                                    )
+                                }
+                                Text(
+                                    text = "${cornerRadius.toInt()}dp",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                                )
+                            }
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                        ) {
+                            Text(
+                                text = stringResource(R.string.pref_padding),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
+                            Text(
+                                text = stringResource(R.string.pref_padding_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f),
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.compact),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(
+                                        alpha = 0.6f
+                                    )
+                                )
+                                Slider(
+                                    value = padding,
+                                    onValueChange = { value ->
+                                        scope.launch {
+                                            WidgetPreferences.setPadding(
+                                                this@WidgetConfigActivity,
+                                                value,
+                                            )
+                                            PersianDateWidget().updateAll(this@WidgetConfigActivity)
+                                        }
+                                    },
+                                    valueRange = 0f..24f,
+                                    modifier = Modifier.weight(1f)
+                                )
+                                Text(
+                                    text = stringResource(R.string.spacious),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(
+                                        alpha = 0.6f
+                                    )
+                                )
+                            }
+                            Text(
+                                text = "${padding.toInt()}dp",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.align(Alignment.CenterHorizontally)
+                            )
                         }
                     }
                 }

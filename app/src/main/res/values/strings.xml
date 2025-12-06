@@ -14,6 +14,14 @@
     <string name="pref_background_opacity_desc">Adjust widget background transparency level</string>
     <string name="transparent">Transparent</string>
     <string name="opaque">Opaque</string>
+    <string name="pref_corner_radius">Corner Radius</string>
+    <string name="pref_corner_radius_desc">Adjust widget corner roundness (Android 12+)</string>
+    <string name="sharp">Sharp</string>
+    <string name="rounded">Rounded</string>
+    <string name="pref_padding">Content Padding</string>
+    <string name="pref_padding_desc">Adjust space around widget content</string>
+    <string name="compact">Compact</string>
+    <string name="spacious">Spacious</string>
 
     <!-- Buttons -->
     <string name="button_refresh_widget">Refresh Widget Now</string>

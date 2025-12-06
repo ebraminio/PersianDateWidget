@@ -14,6 +14,14 @@
     <string name="pref_background_opacity_desc">تنظیم میزان شفافیت پس‌زمینه ویجت</string>
     <string name="transparent">شفاف</string>
     <string name="opaque">کدر</string>
+    <string name="pref_corner_radius">انحنای گوشه‌ها</string>
+    <string name="pref_corner_radius_desc">تنظیم میزان گردی گوشه‌های ویجت (اندروید ۱۲ به بالا)</string>
+    <string name="sharp">تیز</string>
+    <string name="rounded">گرد</string>
+    <string name="pref_padding">فاصله محتوا</string>
+    <string name="pref_padding_desc">تنظیم فاصله اطراف محتوای ویجت</string>
+    <string name="compact">فشرده</string>
+    <string name="spacious">دار فاصله</string>
 
     <!-- Buttons -->
     <string name="button_refresh_widget">به‌روزرسانی فوری ویجت</string>
