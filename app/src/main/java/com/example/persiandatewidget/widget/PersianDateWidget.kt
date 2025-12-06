@@ -55,7 +55,7 @@ class PersianDateWidget : GlanceAppWidget() {
             R.id.widget_content,
             GlanceModifier
                 .fillMaxSize()
-                .padding(padding.dp),
+                .padding(vertical = padding.dp),
         ) {
             Box(
                 GlanceModifier
