@@ -45,8 +45,14 @@ class PersianDateWidget : GlanceAppWidget() {
         val showAppName = WidgetPreferences.showAppName(dataStore)
         val backgroundAlpha = WidgetPreferences.getBackgroundAlpha(dataStore)
         val cornerRadius = WidgetPreferences.getCornerRadius(dataStore)
-        val padding = WidgetPreferences.getPadding(dataStore).let { if (it == 0f) 0f else it + .5f }
-        Column(GlanceModifier.padding(vertical = padding.dp)) {
+        val verticalPadding = WidgetPreferences.getVerticalPadding(dataStore).let { if (it == 0f) 0f else it + .5f }
+        val horizontalPadding = WidgetPreferences.getHorizontalPadding(dataStore).let { if (it == 0f) 0f else it + .5f }
+        Column(
+            GlanceModifier.padding(
+                vertical = verticalPadding.dp,
+                horizontal = horizontalPadding.dp
+            ),
+        ) {
             Box(GlanceModifier.defaultWeight()) {
                 AndroidRemoteViews(
                     RemoteViews(context.packageName, R.layout.widget_backround).also {
@@ -114,7 +120,7 @@ class PersianDateWidget : GlanceAppWidget() {
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = context.getString(R.string.app_name),
+                    text = context.getString(R.string.calendar),
                     style = TextStyle(
                         color = androidx.glance.unit.ColorProvider(Color.White),
                         fontSize = 13.sp,

@@ -23,6 +23,10 @@
     <string name="rounded">گرد</string>
     <string name="pref_padding">فاصله محتوا</string>
     <string name="pref_padding_desc">تنظیم فاصله اطراف محتوای ویجت</string>
+    <string name="pref_vertical_padding">فاصله عمودی</string>
+    <string name="pref_vertical_padding_desc">تنظیم فاصله بالا و پایین محتوای ویجت</string>
+    <string name="pref_horizontal_padding">فاصله افقی</string>
+    <string name="pref_horizontal_padding_desc">تنظیم فاصله چپ و راست محتوای ویجت</string>
     <string name="compact">فشرده</string>
     <string name="spacious">دار فاصله</string>
 

@@ -21,6 +21,8 @@ object WidgetPreferences {
     private val KEY_BACKGROUND_ALPHA = floatPreferencesKey("background_alpha")
     private val KEY_CORNER_RADIUS = floatPreferencesKey("corner_radius")
     private val KEY_PADDING = floatPreferencesKey("padding")
+    private val KEY_VERTICAL_PADDING = floatPreferencesKey("vertical_padding")
+    private val KEY_HORIZONTAL_PADDING = floatPreferencesKey("horizontal_padding")
     private val KEY_SHOW_APP_NAME = booleanPreferencesKey("show_app_name")
 
     @Composable
@@ -58,6 +60,28 @@ object WidgetPreferences {
     suspend fun setPadding(context: Context, padding: Float) {
         context.dataStore.edit { preferences ->
             preferences[KEY_PADDING] = padding.coerceIn(0f, 24f)
+        }
+    }
+
+    fun getVerticalPadding(dataStore: Preferences?): Float {
+        val newValue = dataStore?.get(KEY_VERTICAL_PADDING)
+        return newValue ?: dataStore?.get(KEY_PADDING) ?: 4f
+    }
+
+    suspend fun setVerticalPadding(context: Context, padding: Float) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_VERTICAL_PADDING] = padding.coerceIn(0f, 24f)
+        }
+    }
+
+    fun getHorizontalPadding(dataStore: Preferences?): Float {
+        val newValue = dataStore?.get(KEY_HORIZONTAL_PADDING)
+        return newValue ?: dataStore?.get(KEY_PADDING) ?: 4f
+    }
+
+    suspend fun setHorizontalPadding(context: Context, padding: Float) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_HORIZONTAL_PADDING] = padding.coerceIn(0f, 24f)
         }
     }
 

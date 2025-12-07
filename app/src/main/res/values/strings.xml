@@ -23,6 +23,10 @@
     <string name="rounded">Rounded</string>
     <string name="pref_padding">Content Padding</string>
     <string name="pref_padding_desc">Adjust space around widget content</string>
+    <string name="pref_vertical_padding">Vertical Padding</string>
+    <string name="pref_vertical_padding_desc">Adjust space above and below widget content</string>
+    <string name="pref_horizontal_padding">Horizontal Padding</string>
+    <string name="pref_horizontal_padding_desc">Adjust space on left and right of widget content</string>
     <string name="compact">Compact</string>
     <string name="spacious">Spacious</string>
 
