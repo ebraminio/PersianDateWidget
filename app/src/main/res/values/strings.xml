@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Persian Date Widget</string>
+    <string name="calendar">Calendar</string>
     <string name="widget_description">Displays current Persian date with day and month</string>
 
     <!-- Configuration Activity -->

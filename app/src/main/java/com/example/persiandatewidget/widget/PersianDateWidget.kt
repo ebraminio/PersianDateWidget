@@ -5,7 +5,6 @@ import android.os.Build
 import android.widget.RemoteViews
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +25,7 @@ import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
+import androidx.glance.text.FontStyle
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -116,8 +116,8 @@ class PersianDateWidget : GlanceAppWidget() {
                 Text(
                     text = context.getString(R.string.app_name),
                     style = TextStyle(
-                        color = GlanceTheme.colors.outline,
-                        fontSize = 10.sp,
+                        color = androidx.glance.unit.ColorProvider(Color.White),
+                        fontSize = 13.sp,
                         fontWeight = FontWeight.Normal,
                     ),
                     modifier = GlanceModifier.padding(top = 4.dp),
