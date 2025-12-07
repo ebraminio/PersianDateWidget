@@ -25,7 +25,6 @@ import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
-import androidx.glance.text.FontStyle
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -48,10 +47,12 @@ class PersianDateWidget : GlanceAppWidget() {
         val verticalPadding = WidgetPreferences.getVerticalPadding(dataStore)
         val horizontalPadding = WidgetPreferences.getHorizontalPadding(dataStore)
         Column(
-            GlanceModifier.padding(
-                vertical = verticalPadding.dp,
-                horizontal = horizontalPadding.dp
-            ),
+            GlanceModifier
+                .fillMaxSize()
+                .padding(
+                    vertical = verticalPadding.dp,
+                    horizontal = horizontalPadding.dp
+                ),
         ) {
             Box(GlanceModifier.defaultWeight()) {
                 AndroidRemoteViews(
