@@ -12,6 +12,7 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
+import kotlin.math.roundToInt
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "widget_preferences")
 
@@ -55,18 +56,8 @@ object WidgetPreferences {
         }
     }
 
-    fun getPadding(dataStore: Preferences?) = dataStore?.get(KEY_PADDING) ?: 4f
-
-    suspend fun setPadding(context: Context, padding: Float) {
-        context.dataStore.edit { preferences ->
-            preferences[KEY_PADDING] = padding.coerceIn(0f, 24f)
-        }
-    }
-
-    fun getVerticalPadding(dataStore: Preferences?): Float {
-        val newValue = dataStore?.get(KEY_VERTICAL_PADDING)
-        return newValue ?: dataStore?.get(KEY_PADDING) ?: 4f
-    }
+    fun getVerticalPadding(dataStore: Preferences?): Float =
+        dataStore?.get(KEY_VERTICAL_PADDING)?.roundToInt()?.toFloat() ?: 0f
 
     suspend fun setVerticalPadding(context: Context, padding: Float) {
         context.dataStore.edit { preferences ->
@@ -74,10 +65,8 @@ object WidgetPreferences {
         }
     }
 
-    fun getHorizontalPadding(dataStore: Preferences?): Float {
-        val newValue = dataStore?.get(KEY_HORIZONTAL_PADDING)
-        return newValue ?: dataStore?.get(KEY_PADDING) ?: 4f
-    }
+    fun getHorizontalPadding(dataStore: Preferences?): Float =
+        dataStore?.get(KEY_HORIZONTAL_PADDING)?.roundToInt()?.toFloat() ?: 0f
 
     suspend fun setHorizontalPadding(context: Context, padding: Float) {
         context.dataStore.edit { preferences ->
