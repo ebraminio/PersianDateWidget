@@ -97,6 +97,7 @@ class WidgetConfigActivity : ComponentActivity() {
 
         val dataStore by WidgetPreferences.dataStore(this)
         val useColorful = WidgetPreferences.isColorful(dataStore)
+        val showAppName = WidgetPreferences.showAppName(dataStore)
         val backgroundAlpha = WidgetPreferences.getBackgroundAlpha(dataStore)
         val cornerRadius = WidgetPreferences.getCornerRadius(dataStore)
         val padding = WidgetPreferences.getPadding(dataStore)
@@ -162,7 +163,7 @@ class WidgetConfigActivity : ComponentActivity() {
                 ) {
                     val context = LocalContext.current
                     val widgetWidth = defaultHeight * 2
-                    key(useColorful, backgroundAlpha, cornerRadius, padding) {
+                    key(useColorful, showAppName, backgroundAlpha, cornerRadius, padding) {
                         AppWidgetHostPreview(
                             modifier = Modifier,
                             displaySize = DpSize(widgetWidth, defaultHeight)
@@ -226,6 +227,41 @@ class WidgetConfigActivity : ComponentActivity() {
                             }
                             Switch(
                                 checked = useColorful,
+                                onCheckedChange = null, // Handled by Row click
+                            )
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    scope.launch {
+                                        WidgetPreferences.setShowAppName(
+                                            this@WidgetConfigActivity,
+                                            !showAppName,
+                                        )
+                                        PersianDateWidget().updateAll(this@WidgetConfigActivity)
+                                    }
+                                }
+                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = stringResource(R.string.pref_show_app_name),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer
+                                )
+                                Text(
+                                    text = stringResource(R.string.pref_show_app_name_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
+                                )
+                            }
+                            Switch(
+                                checked = showAppName,
                                 onCheckedChange = null, // Handled by Row click
                             )
                         }

@@ -10,6 +10,8 @@
     <string name="preferences_title">ظاهر ویجت</string>
     <string name="pref_colorful">رنگی</string>
     <string name="pref_colorful_desc">استفاده از رنگ‌های تم سیستم</string>
+    <string name="pref_show_app_name">نمایش نام برنامه</string>
+    <string name="pref_show_app_name_desc">نمایش نام برنامه در پایین ویجت</string>
     <string name="pref_background_opacity">شفافیت پس‌زمینه</string>
     <string name="pref_background_opacity_desc">تنظیم میزان شفافیت پس‌زمینه ویجت</string>
     <string name="transparent">شفاف</string>

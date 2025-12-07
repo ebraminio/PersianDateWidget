@@ -10,6 +10,8 @@
     <string name="preferences_title">Widget Appearance</string>
     <string name="pref_colorful">Colorful</string>
     <string name="pref_colorful_desc">Use colorful accent colors (Material You)</string>
+    <string name="pref_show_app_name">Show App Name</string>
+    <string name="pref_show_app_name_desc">Display app name at the bottom of widget</string>
     <string name="pref_background_opacity">Background Opacity</string>
     <string name="pref_background_opacity_desc">Adjust widget background transparency level</string>
     <string name="transparent">Transparent</string>

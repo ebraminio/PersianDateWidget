@@ -21,6 +21,7 @@ object WidgetPreferences {
     private val KEY_BACKGROUND_ALPHA = floatPreferencesKey("background_alpha")
     private val KEY_CORNER_RADIUS = floatPreferencesKey("corner_radius")
     private val KEY_PADDING = floatPreferencesKey("padding")
+    private val KEY_SHOW_APP_NAME = booleanPreferencesKey("show_app_name")
 
     @Composable
     fun dataStore(context: Context): State<Preferences?> {
@@ -57,6 +58,14 @@ object WidgetPreferences {
     suspend fun setPadding(context: Context, padding: Float) {
         context.dataStore.edit { preferences ->
             preferences[KEY_PADDING] = padding.coerceIn(0f, 24f)
+        }
+    }
+
+    fun showAppName(dataStore: Preferences?) = dataStore?.get(KEY_SHOW_APP_NAME) ?: false
+
+    suspend fun setShowAppName(context: Context, showAppName: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_SHOW_APP_NAME] = showAppName
         }
     }
 }
