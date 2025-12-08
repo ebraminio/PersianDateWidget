@@ -519,29 +519,29 @@ class WidgetConfigActivity : ComponentActivity() {
                     }
                 }
 
-                FilledTonalButton(
-                    onClick = {
-                        scope.launch {
-                            runCatching {
-                                PersianDateWidget().updateAll(this@WidgetConfigActivity)
-                                snackbarHostState.showSnackbar(getString(R.string.message_widget_updated))
-                            }.onFailure {
-                                snackbarHostState.showSnackbar(getString(R.string.message_update_error))
-                            }
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.button_refresh_widget),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
+//                FilledTonalButton(
+//                    onClick = {
+//                        scope.launch {
+//                            runCatching {
+//                                PersianDateWidget().updateAll(this@WidgetConfigActivity)
+//                                snackbarHostState.showSnackbar(getString(R.string.message_widget_updated))
+//                            }.onFailure {
+//                                snackbarHostState.showSnackbar(getString(R.string.message_update_error))
+//                            }
+//                        }
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(56.dp),
+//                ) {
+//                    Text(
+//                        text = stringResource(R.string.button_refresh_widget),
+//                        fontSize = 16.sp,
+//                        fontWeight = FontWeight.Medium
+//                    )
+//                }
 
-                OutlinedButton(
+                FilledTonalButton(
                     onClick = { finish() }, modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)

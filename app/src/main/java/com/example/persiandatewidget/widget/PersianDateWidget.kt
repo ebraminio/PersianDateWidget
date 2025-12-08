@@ -96,7 +96,7 @@ class PersianDateWidget : GlanceAppWidget() {
                             } else {
                                 GlanceTheme.colors.onBackground
                             },
-                            fontSize = 34.sp,
+                            fontSize = if (showAppName) 24.sp else 34.sp,
                             fontWeight = FontWeight.Bold,
                         ),
                     )
