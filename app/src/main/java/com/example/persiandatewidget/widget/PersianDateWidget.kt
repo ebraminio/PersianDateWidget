@@ -28,6 +28,7 @@ import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
 import com.example.persiandatewidget.R
 import com.example.persiandatewidget.util.PersianDate
 import com.example.persiandatewidget.util.WidgetPreferences
@@ -123,7 +124,9 @@ class PersianDateWidget : GlanceAppWidget() {
                 Text(
                     text = context.getString(R.string.calendar),
                     style = TextStyle(
-                        color = androidx.glance.unit.ColorProvider(Color.White),
+                        color = object : ColorProvider {
+                            override fun getColor(context: Context) = Color.White
+                        },
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Normal,
                     ),
