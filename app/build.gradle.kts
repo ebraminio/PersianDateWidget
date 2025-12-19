@@ -55,7 +55,6 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.glance.appwidget)
     implementation(libs.glance.material3)
-    implementation("com.google.android.glance.tools:appwidget-host:0.2.2")
     implementation(libs.datastore.preferences)
     implementation(libs.work.runtime.ktx)
 

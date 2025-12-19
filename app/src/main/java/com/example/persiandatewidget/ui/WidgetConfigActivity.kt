@@ -2,6 +2,7 @@ package com.example.persiandatewidget.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -24,7 +26,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SnackbarHost
@@ -38,7 +39,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -57,12 +57,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.glance.appwidget.compose
 import androidx.glance.appwidget.updateAll
 import com.example.persiandatewidget.R
 import com.example.persiandatewidget.util.WidgetPreferences
 import com.example.persiandatewidget.widget.PersianDateWidget
-import com.google.android.glance.appwidget.host.AppWidgetHostPreview
 import kotlinx.coroutines.launch
 
 class WidgetConfigActivity : ComponentActivity() {
@@ -164,18 +164,26 @@ class WidgetConfigActivity : ComponentActivity() {
                 ) {
                     val context = LocalContext.current
                     val widgetWidth = defaultHeight * 2
-                    key(useColorful, showAppName, backgroundAlpha, cornerRadius, verticalPadding, horizontalPadding) {
-                        AppWidgetHostPreview(
-                            modifier = Modifier,
-                            displaySize = DpSize(widgetWidth, defaultHeight)
-                        ) {
-                            PersianDateWidget().compose(
-                                context = context,
-                                size = DpSize(widgetWidth, defaultHeight),
-                                state = null
-                            )
-                        }
-                    }
+                    val coroutineScope = rememberCoroutineScope()
+                    val size = DpSize(widgetWidth, defaultHeight)
+                    val widget = PersianDateWidget()
+                    AndroidView(
+                        factory = ::FrameLayout,
+                        update = {
+                            useColorful.let {}
+                            showAppName.let {}
+                            backgroundAlpha.let {}
+                            cornerRadius.let {}
+                            verticalPadding.let {}
+                            horizontalPadding.let {}
+                            coroutineScope.launch {
+                                val remoteViews = widget.compose(context, size = size)
+                                it.removeAllViews()
+                                it.addView(remoteViews.apply(it.context.applicationContext, it))
+                            }
+                        },
+                        modifier = Modifier.size(size),
+                    )
                 }
 
                 Card(
