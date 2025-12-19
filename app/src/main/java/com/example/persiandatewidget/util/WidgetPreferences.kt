@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -28,7 +29,7 @@ object WidgetPreferences {
 
     @Composable
     fun dataStore(context: Context): State<Preferences?> {
-        val initialData = runBlocking { context.dataStore.data.firstOrNull() }
+        val initialData = remember { runBlocking { context.dataStore.data.firstOrNull() } }
         return context.dataStore.data.collectAsState(initialData)
     }
 
