@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.children
 import androidx.glance.appwidget.compose
 import androidx.glance.appwidget.updateAll
 import com.example.persiandatewidget.R
@@ -169,7 +170,7 @@ class WidgetConfigActivity : ComponentActivity() {
                     val widget = PersianDateWidget()
                     AndroidView(
                         factory = ::FrameLayout,
-                        update = {
+                        update = { parent ->
                             useColorful.let {}
                             showAppName.let {}
                             backgroundAlpha.let {}
@@ -177,9 +178,12 @@ class WidgetConfigActivity : ComponentActivity() {
                             verticalPadding.let {}
                             horizontalPadding.let {}
                             coroutineScope.launch {
+                                val context = context.applicationContext
                                 val remoteViews = widget.compose(context, size = size)
-                                it.removeAllViews()
-                                it.addView(remoteViews.apply(it.context.applicationContext, it))
+                                if (remoteViews.layoutId != parent.children.firstOrNull()?.id) {
+                                    parent.removeAllViews()
+                                    parent.addView(remoteViews.apply(context, parent))
+                                } else remoteViews.reapply(context, parent)
                             }
                         },
                         modifier = Modifier.size(size),
